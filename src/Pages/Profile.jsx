@@ -156,6 +156,7 @@ function AccountPage() {
               </label>
               {isEditing ? (
                 key === "dob" ? (
+                  //added new datePicker
                   <DatePicker
                   value={userData.dob ? dayjs(userData.dob) : null}
                   onChange={(date) =>
