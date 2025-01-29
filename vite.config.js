@@ -5,7 +5,7 @@ export default defineConfig({
   plugins: [react()],
   build: {
     rollupOptions: {
-      external: ["react-toastify", "react-router-dom"], // Ensure react-router-dom is listed here
+      external: ["react-toastify", "react-router-dom", "react-datepicker", "react-hot-toast"], // Ensure react-router-dom is listed here
     },
   },
   server: {
