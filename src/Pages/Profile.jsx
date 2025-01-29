@@ -1,7 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import { ShopContext } from "../Context/ShopContext";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import dayjs from "dayjs";
+// import DatePicker from "react-datepicker";
+// import "react-datepicker/dist/react-datepicker.css";
 import toast, { Toaster } from "react-hot-toast";
 
 function AccountPage() {
@@ -112,6 +116,7 @@ function AccountPage() {
   };
 
   return (
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
     <div className="flex items-center justify-center bg-gray-100 h-screen">
       <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-md">
         <Toaster />
@@ -152,16 +157,12 @@ function AccountPage() {
               {isEditing ? (
                 key === "dob" ? (
                   <DatePicker
-                    selected={userData.dob ? new Date(userData.dob) : null}
-                    onChange={(date) =>
-                      handleChange(
-                        "dob",
-                        date ? date.toISOString().split("T")[0] : ""
-                      )
-                    }
-                    dateFormat="yyyy-MM-dd"
-                    className="border border-gray-300 rounded px-2"
-                  />
+                  value={userData.dob ? dayjs(userData.dob) : null}
+                  onChange={(date) =>
+                    handleChange("dob", date ? date.format("YYYY-MM-DD") : "")
+                  }
+                  format="YYYY-MM-DD"
+                />
                 ) : key === "state" ? (
                   <select
                     value={userData.state}
@@ -259,6 +260,7 @@ function AccountPage() {
         </div>
       </div>
     </div>
+    </LocalizationProvider>
   );
 }
 
